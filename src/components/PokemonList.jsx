@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PokemonCard } from './PokemonCard';
 import { PokemonContext } from '../contexts/PokemonContext';
 import Pagination from './Pagination';
+import Loader from './Loader';
 
 const PokemonList = () => {
   const {
@@ -15,6 +16,13 @@ const PokemonList = () => {
     itemsPerPage,
     handlePageChange,
   } = useContext(PokemonContext);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 500);
+  }, [pokemons]);
 
   const filteredPokemons = pokemons.filter(
     (pokemon) =>
@@ -31,7 +39,9 @@ const PokemonList = () => {
         Pokédex Explorer
       </h2>
 
-      {filteredPokemons.length === 0 ? (
+      {loading ? (
+        <Loader />
+      ) : filteredPokemons.length === 0 ? (
         <p className="text-center text-gray-500">No Pokémon found.</p>
       ) : (
         <>
@@ -62,3 +72,4 @@ const PokemonList = () => {
 };
 
 export default PokemonList;
+

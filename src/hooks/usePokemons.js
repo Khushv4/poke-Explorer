@@ -23,7 +23,7 @@ export const usePokemons = () => {
     const fetchPokemons = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=150');
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=220');
         const results = response.data.results;
 
         const detailedPromises = results.map((pokemon) =>
